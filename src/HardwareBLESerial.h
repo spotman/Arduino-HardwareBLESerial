@@ -49,7 +49,7 @@ template<size_t N> class ByteRingBuffer {
     size_t getLength() { return length; }
 };
 
-class HardwareBLESerial {
+class HardwareBLESerial : public Stream {
   public:
     // singleton instance getter
     static HardwareBLESerial& getInstance() {
@@ -64,7 +64,7 @@ class HardwareBLESerial {
     void begin();
     void poll();
     void end();
-    size_t available();
+    //size_t available();
     int peek();
     int read();
     size_t write(uint8_t byte);
@@ -85,6 +85,11 @@ class HardwareBLESerial {
     size_t println(double value);
 
     operator bool();
+
+    int available(void) override {
+      return this->receiveBuffer.getLength();
+    }
+
   private:
     HardwareBLESerial();
     HardwareBLESerial(HardwareBLESerial const &other) = delete;  // disable copy constructor

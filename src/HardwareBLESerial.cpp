@@ -37,9 +37,11 @@ void HardwareBLESerial::end() {
   flush();
 }
 
-size_t HardwareBLESerial::available() {
+/*
+int HardwareBLESerial::available(void) override {
   return this->receiveBuffer.getLength();
 }
+*/
 
 int HardwareBLESerial::peek() {
   if (this->receiveBuffer.getLength() == 0) return -1;
